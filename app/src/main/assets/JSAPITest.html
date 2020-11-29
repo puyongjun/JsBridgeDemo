@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta name="viewport"
+          content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <script language="javascript">
+            function setupWebViewJavascriptBridge(callback) {
+           if (window.WebViewJavascriptBridge) {
+               callback(WebViewJavascriptBridge)
+           } else {
+               document.addEventListener(
+                   'WebViewJavascriptBridgeReady'
+                   , function() {
+                       callback(WebViewJavascriptBridge)
+                   },
+                   false
+               );
+           }
+       }
+
+     setupWebViewJavascriptBridge(function(bridge) {
+
+           bridge.init(function(message, responseCallback) {
+               var responseData = '222';
+               responseCallback(responseData);
+           });
+
+
+           bridge.registerHandler("functionInJs", function(data, responseCallback) {
+               var responseData = 'js指定接收完毕，并回传数据给java';
+               responseCallback(responseData);
+           });
+       })
+
+       function toast(){
+         window.WebViewJavascriptBridge.callHandler(
+         'toast'
+              , "2222"
+                , function(responseData) {
+
+                });
+
+       }
+
+    </script>
+    <title>JSAPI TestMD5</title>
+</head>
+<body>
+<h1>测试 JS 接口</h1>
+<input type="button" value="logout" onclick="toast()"/>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+include ':swipeback'
+include ':app'
+rootProject.name = "JsBridgeDemo"
